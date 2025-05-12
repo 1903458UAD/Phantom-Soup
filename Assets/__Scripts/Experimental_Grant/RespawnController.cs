@@ -19,7 +19,7 @@ public class RespawnController : MonoBehaviour
     private void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 5f, mask))
+        if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 1f, mask))
         {
             lastTouch = hit.transform.gameObject;
             spawnPoint = lastTouch.transform.GetChild(0);
@@ -29,7 +29,7 @@ public class RespawnController : MonoBehaviour
     public void Respawn()
     {
         player.GetComponent<CharacterController>().enabled = false;
-        player.transform.position = new Vector3 (0f, 2f, -7.5f);
+        player.transform.position = new Vector3 (spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z);
         player.GetComponent<CharacterController>().enabled = true;
     }
 }
