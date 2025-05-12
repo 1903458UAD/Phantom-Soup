@@ -10,6 +10,7 @@ public class BridgeHandler : EditorWindow
     private GameObject anchorPlatform;
     private GameObject rotatePlatform;
     private GameObject rotatePar;
+    private GameObject lastObject;
 
     private float bridgeLength;
     private float segmentLength;
@@ -44,6 +45,7 @@ public class BridgeHandler : EditorWindow
 
         if (GUILayout.Button("Create Bridge") && anchorPlatform != null && rotatePlatform != null)
         {
+            lastObject = null;
             CreateBridge(anchorPlatform.transform.position, rotatePlatform.transform.position);
         }
     }
@@ -67,14 +69,19 @@ public class BridgeHandler : EditorWindow
         //Create a parent container
         GameObject bridgeParent = new GameObject ("Bridge");
 
-        for (int i = 0; i < required; i++)
+        for (int i = 0; i < (required +1); i++)
         {
             Vector3 position = Vector3.Lerp(startPoint, endPoint, (float)i / required);
             GameObject segment = (GameObject)PrefabUtility.InstantiatePrefab(bridgePrefab);
             segment.transform.position = position;
             segment.transform.rotation = Quaternion.LookRotation(endPoint - startPoint);
             segment.transform.SetParent(bridgeParent.transform);
-            Undo.RegisterCreatedObjectUndo(segment, "Created Bridge Segment");
+            if(lastObject != null)
+            {
+                segment.GetComponent<FixedJoint>().connectedBody = lastObject.GetComponent<Rigidbody>();
+            }
+            
+            lastObject = segment;
         }
     }
 }
