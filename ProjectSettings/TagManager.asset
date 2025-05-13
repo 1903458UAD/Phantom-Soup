@@ -5,15 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Trunk
+  - Platform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Outlined Objects
+  - 
   - Water
   - UI
-  - 
-  - 
+  - Trunk
+  - Platform
   - 
   - 
   - 
