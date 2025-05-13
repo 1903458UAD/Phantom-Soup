@@ -19,10 +19,10 @@ public class RespawnController : MonoBehaviour
     private void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 1f, mask))
+        if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 2f, mask))
         {
             lastTouch = hit.transform.gameObject;
-            spawnPoint = lastTouch.transform.GetChild(0);
+            spawnPoint = lastTouch.transform.Find("SpawnPoint");
         }
     }
 
